@@ -25,7 +25,8 @@
   function collect() {
     const candidates = [
       ...document.querySelectorAll(
-        "p,li,pre,blockquote,h1,h2,h3,h4,td,figcaption",
+        // Last two: X/Twitter tweet text and long-form article blocks.
+        'p,li,pre,blockquote,h1,h2,h3,h4,td,figcaption,[data-testid="tweetText"],[data-block="true"]',
       ),
     ];
     let size = 0,

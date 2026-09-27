@@ -158,7 +158,7 @@ Stop the dev server before running preview on the same port, or choose another `
 
 `npm run package:extension` produces:
 
-- `artifacts/needle-extension-v1.1.1.zip` for release attachment.
+- `artifacts/needle-extension-v1.2.0.zip` for release attachment.
 - `public/needle-extension.zip` for the app’s download link; production builds copy it to `dist/`.
 
 ZIP packaging uses an explicit file allowlist and does not include the backend, `.env`, dependencies or development output. Build artifacts are not committed.
