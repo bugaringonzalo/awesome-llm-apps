@@ -19,7 +19,6 @@
   let active = 0,
     matches = [],
     generation = 0,
-    timer,
     closed = false,
     blocks = [],
     highlightStyle = null;
@@ -123,7 +122,6 @@
     paint();
   }
   async function search() {
-    clearTimeout(timer);
     const current = ++generation;
     collect();
     clearHighlights();
@@ -170,7 +168,6 @@
   function close() {
     closed = true;
     generation++;
-    clearTimeout(timer);
     clearHighlights();
     host.remove();
     document.removeEventListener("keydown", key, true);
@@ -188,6 +185,9 @@
     }
   }
   host.addEventListener("needle-close", close);
+  // Keep typing out of page hotkeys (e.g. GitHub's "t" file finder).
+  for (const type of ["keydown", "keypress", "keyup"])
+    host.addEventListener(type, (event) => event.stopPropagation());
   document.addEventListener("keydown", key, true);
   $(".close").onclick = close;
   $(".settings").onclick = () =>
@@ -200,11 +200,9 @@
   };
   input.oninput = () => {
     generation++;
-    clearTimeout(timer);
     clearHighlights();
     matches = [];
-    label.textContent = "…";
-    timer = setTimeout(search, 700);
+    label.textContent = "Press Enter to search.";
   };
   input.onkeydown = (event) => {
     if (event.key === "Enter" && matches.length) {
